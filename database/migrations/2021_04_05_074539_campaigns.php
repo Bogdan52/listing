@@ -17,6 +17,9 @@ class Campaigns extends Migration
 				$table->increments('id');
 				$table->string('name');
 				$table->string('state');
+				$table->integer('company_id')->nullable()->unsigned();
+				$table->foreign('company_id')->references('company_id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
+
 				$table->timestamps();
 			});
 		}

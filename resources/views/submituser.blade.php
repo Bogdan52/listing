@@ -4,9 +4,8 @@
 				<div class="row">
 						<h1>Add campaigns</h1>
 				</div>
-
 				<div class="row">
-						<form action="/user/company/{{$id}}/campaigns/submit" method="post">
+						<form action="/user/company/$id/campaigns/submit" method="post">
 								@csrf
 								@if ($errors->any())
 										<div class="alert alert-danger" role="alert">
@@ -14,16 +13,16 @@
 										</div>
 								@endif
 								<div class="form-group">
-										<label for="name">Campaigns Name</label>
+										<label for="name">Name</label>
 										<input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Name" value="{{ old('name') }}">
 										@error('name')
 												<div class="invalid-feedback">{{ $message }}</div>
 										@enderror
 								</div>
 								<div class="form-group">
-										<label for="buget">Buget</label>
+										<label for="buget">Email</label>
 										<input type="number" class="form-control @error('buget') is-invalid @enderror" id="buget" name="buget" placeholder="Buget" value="{{ old('buget') }}" min="0">
-										@error('buget')
+										@error('name')
 												<div class="invalid-feedback">{{ $message }}</div>
 										@enderror
 								</div>

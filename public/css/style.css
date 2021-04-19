@@ -1,0 +1,50 @@
+		
+		#thHover:hover{
+			background-color: lightgrey;
+			color: black;
+
+		}
+
+		th {
+			padding: 10px;
+			text-align: center;
+			margin: 5px;
+			font-size: 20px;
+			border-bottom: 2px solid black;
+			width: 100vh;
+		}
+		td {
+			margin: 5px;
+			text-align: center;
+			font-size: 15px;
+			border-bottom: 1px solid black;
+		}
+		.button1 {
+			background-color: #008CBA; 
+			color: black; 
+			font-size: 15px;
+			border: 2px solid #008CBA;
+			border-radius: 12px;
+		}
+
+		.button:hover {
+			background-color: white;
+			color: black;
+		}
+		#ord{
+			font-size: 15px;
+			border-radius: 10px;
+			background-color: white;
+		}
+		.button2 {
+			background-color: #008CBA; 
+			color: black; 
+			font-size: 12px;
+			border: 2px solid #008CBA;
+			border-radius: 12px;
+		}
+
+		.button:hover {
+			background-color: white;
+			color: black;
+		}

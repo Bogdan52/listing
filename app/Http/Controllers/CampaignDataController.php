@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Data;
+use App\Models\CampaignData;
+use App\Models\Campaign;
 use Illuminate\Http\Request;
 
-class DataController extends Controller
+class CampaignDataController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +23,8 @@ class DataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
     }
 
     /**
@@ -34,17 +34,17 @@ class DataController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Data  $data
+     * @param  \App\CampaignData  $campaignData
      * @return \Illuminate\Http\Response
      */
-    public function show(Data $data)
+    public function show(CampaignData $campaignData)
     {
         //
     }
@@ -52,10 +52,10 @@ class DataController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Data  $data
+     * @param  \App\CampaignData  $campaignData
      * @return \Illuminate\Http\Response
      */
-    public function edit(Data $data)
+    public function edit(CampaignData $campaignData)
     {
         //
     }
@@ -64,10 +64,10 @@ class DataController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Data  $data
+     * @param  \App\CampaignData  $campaignData
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Data $data)
+    public function update(Request $request, CampaignData $campaignData)
     {
         //
     }
@@ -75,10 +75,10 @@ class DataController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Data  $data
+     * @param  \App\CampaignData  $campaignData
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Data $data)
+    public function destroy(CampaignData $campaignData)
     {
         //
     }

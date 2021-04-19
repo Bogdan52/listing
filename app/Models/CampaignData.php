@@ -1,11 +1,11 @@
 <?php
 
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Data extends Model
+class CampaignData extends Model
 {
 	 protected $table = 'campaigns_data';
 	 protected $fillable = [
@@ -17,6 +17,6 @@ class Data extends Model
 	];
 
 	public function campaign() {
-		return $this->belongsTo(Campaigns::class);
+		return $this->belongsTo(Campaign::class);
 	}
 }

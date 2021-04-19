@@ -35,8 +35,8 @@ $(function()
         $(this).parent('li').addClass('active');
         event.preventDefault();
         var myurl = $(this).attr('href');
-       var page=$(this).attr('href').split('page=')[1];
-     listCampaigns(val,dir,page);
+       	var page=$(this).attr('href').split('page=')[1];
+     		listCampaigns(val,dir,page);
     });
 });
 

@@ -15,9 +15,20 @@
  		</tr>
 @endforeach
 <tr>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
 	<td>
 {!! $campaigns->links() !!}
 </td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
 </tr>
 
  

@@ -28,8 +28,8 @@ Route::post('/user/submit', 'CompaniesController@store')->middleware('auth');
 Route::get('/user/company/{id}', 'CompaniesController@index')->middleware('auth');
 Route::get('/user/company/{id}/campaigns', 'CampaignsController@index')->middleware('auth');
 Route::get('/company/{id}/campaigns_list', 'CampaignsController@campaigns_list')->middleware('auth');
-
-
+Route::delete('/campaigns/delete/{id}/{_token}', 'CampaignsController@destroy')->middleware('auth');
+Route::post('/campaigns/update/{id}/{state}', 'CampaignsController@updateState')->middleware('auth');
 
 Route::get('/user/company/{id}/campaigns/submit', 'CampaignsController@submit')->middleware('auth');
 Route::post('/user/company/{id}/campaigns/submit', 'CampaignsController@store')->middleware('auth');

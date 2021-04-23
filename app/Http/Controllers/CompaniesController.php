@@ -15,14 +15,14 @@ class CompaniesController extends Controller
 		 */
 		public function index($id)
 		{
- 				$user = Auth::user();
-   			$company = Company::find($id);
- 		if ($user->can('view', $company)) {
- 							$users= $company->users()->get();
-      				 return view('company',['company' => $company,'users'=>$users]);
-    } else {
-      echo 'Not Authorized.';
-    }
+			$user = Auth::user();
+			$company = Company::find($id);
+		if ($user->can('view', $company)) {
+			$users= $company->users()->get();
+			return view('company',['company' => $company,'users'=>$users]);
+		} else {
+			echo 'Not Authorized.';
+		}
 
 
 
@@ -52,30 +52,30 @@ class CompaniesController extends Controller
 		public function store(Request $request)
 		{
 			 $data=$request->validate([
-												'name' => 'required|max:255',
-												'cui'  => 'required'
-
-								]);
-								$exemple=Company::where('cui', '=', $request->cui)->exists();
+					'name' => 'required|max:255',
+					'cui'  => 'required'
+				]);
+				$exemple=Company::where('cui', '=', $request->cui)->exists();
 							//	dd($exemple);
-				 if ($exemple) {
-  					  $comp=Company::where('cui', '=', $request->cui)->get()->first();
-									$user = auth()->user();
-									$user->companies()->sync($comp->id,false);
-									//dd($comp);
+				if ($exemple) {
+					$comp=Company::where('cui', '=', $request->cui)->get()->first();
+				  $user = auth()->user();
+				  $user->companies()->sync($comp->id,false);
+							//dd($comp);
 				 }
 				 else
-				 {			 $company = Company::create([
-								 				'name' => $request->name,
-								 				'adres'=>$request->adres,
-								 				'cui'=>$request->cui
-								 ]);
-								$id=Auth::id();
-								$company->users()->attach($id);
-				 				$companies = $company->save();
-							    
+				 {	
+				 		$company = Company::create([
+							'name' => $request->name,
+							'adres'=>$request->adres,
+							'cui'=>$request->cui
+						]);
+						$id=Auth::id();
+						$company->users()->attach($id);
+						$companies = $company->save();
+									
 				 }
-								return redirect('/user');
+				return redirect('/user');
 		}
 
 		/**
@@ -118,9 +118,10 @@ class CompaniesController extends Controller
 		 * @param  \App\Company  $company
 		 * @return \Illuminate\Http\Response
 		 */
-		public function destroy(Company $company)
+		public function destroy($id)
 		{
-			 // $comp = Company::findOrFail($company->id);
-			 // $comp->delete();
+			  // $comp = Company::findOrFail($id);
+			  // $comp->campaigns->delete();
+			  // $comp->delete();
 		}
 }

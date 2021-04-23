@@ -41,14 +41,15 @@ class CampaignsController extends Controller
 			
 			//$request = Request::all();
 
-			$campaigns= Campaign::join('campaigns_data', 'campaigns.id', '=', 'campaigns_data.campaign_id')->where('company_id','=',$id)->orderBy($request->value,$request->direction )->paginate(10);
-
-			// if ($request->ajax()) {
-			return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render()]);
+		$campaigns= Campaign::join('campaigns_data', 'campaigns.id', '=', 'campaigns_data.campaign_id')
+			->where('company_id','=',$id)
+			->orderBy($request->value,$request->direction )
+			->paginate(10);
+		// if ($request->ajax()) {
+		return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render()]);
 			//}
-
-			//    return view('campaigns_list', compact('campaigns'));
-				//return response()->json(['id'=>'2','name'=>'Test1','buget'=>'2']);
+			//return view('campaigns_list', compact('campaigns'));
+			//return response()->json(['id'=>'2','name'=>'Test1','buget'=>'2']);
 		}
 		/**
 		 * Show the form for creating a new resource.
@@ -122,9 +123,16 @@ class CampaignsController extends Controller
 		 * @param  \App\Campaign  $campaign
 		 * @return \Illuminate\Http\Response
 		 */
-		public function update(Request $request, Campaign $campaign)
-		{
-				//
+		public function updateState($id,$state)
+		{	
+			 	
+				 $campaign = Campaign::find($id);
+
+				 $campaign->state = $state;
+
+				 $campaign->save();
+
+				 return response ()->json ( $campaign );
 		}
 
 		/**
@@ -133,8 +141,12 @@ class CampaignsController extends Controller
 		 * @param  \App\Campaign  $campaign
 		 * @return \Illuminate\Http\Response
 		 */
-		public function destroy(Campaign $campaign)
+		public function destroy($id)
 		{
-				//
+
+			//dd($id);
+				$camp=Campaign::find($id);
+				$camp->campaignData->delete();
+				$camp->delete();	
 		}
 }

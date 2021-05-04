@@ -9,10 +9,12 @@ class Campaign extends Model
    protected $table = 'campaigns';
 	protected $fillable = [
 		'name',
-		'state'
+		'state',
+		'buget',
+		'company_id',
 	];
-	public function campaignData() {
-		return $this->hasOne(CampaignData::class);
+	public function campaignMetric() {
+		return $this->hasMany(CampaignMetric::class);
 	}
 	 public function company()
     {

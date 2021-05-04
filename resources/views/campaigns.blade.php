@@ -17,7 +17,7 @@ val=sent_value;
 dir=sent_direction;
 $.ajax(
 	{
-		url: "/company/{{$id}}/campaigns_list?page=" + page, 
+		url: "{{route('campaigns_list',['id'=>$id])}}?page=" + page, 
 		data:{ value: sent_value , direction: sent_direction },
 		method: "GET",
 		success: function(result){
@@ -40,16 +40,18 @@ $(function()
 		});
 });
 
-function deleteItem(id,token) {
+function deleteItem(id) {
 
 		if (confirm("Are you sure?")) {
 			 $.ajax(
 	{
-		url: "/campaigns/delete/"+id+"/"+token, 
+		url: "{{route('campaign_delete')}}", 
 		data:{  
 			 id: id , 
-			_token: token,
 		},
+		headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   		 },	
 		method: "DELETE",
 		success: function(result){
 					listCampaigns(val,dir,1);
@@ -60,6 +62,7 @@ function deleteItem(id,token) {
 		return false;
 }
 }
+
 function updateItem(id,state) {
 				$('#footer_action_button').text("Update");
 				$('#footer_action_button').addClass('glyphicon-check');
@@ -85,7 +88,10 @@ function updateItem(id,state) {
 						<h1> Campaigns</h1>
 				</div>
 				<div class="column">
-						<h3 align="right"> <button class="button button1"  onclick="window.location='{{ url("/user/company/{$id}/campaigns/submit") }}'">ADD</button></h3>
+						<h3 align="right"> <button class="button button1"  onclick="window.location='{{route('campaign_create',['id'=>$id])}}'">ADD</button></h3>
+				</div>
+				<div class="column">
+						<h3 align="right"> <button class="button button1"  onclick="">Import</button></h3>
 				</div>
 				<div class="row">
 					<div>
@@ -122,7 +128,7 @@ function updateItem(id,state) {
 
 				<br><br>
 			<div class="container">
-			<button class="button button1" onclick="window.location='{{ url("/user/company/{$id}") }}'">Back</button>
+			<button class="button button1" onclick="window.location='{{route('company_index',['id'=>$id])}}'">Back</button>
 			</div>
 			<div id="myModal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
@@ -164,13 +170,16 @@ function updateItem(id,state) {
 								
 									$.ajax({
 											 	 
-												 url: "/campaigns/update/"+ $("#fid").val()+"/"+$('#s').val(),
+												 url: "{{route('campaign_update')}}",
 												 method:"POST",
 												 data: {
-													_token: $('input[name=_token]').val(),
+												//	_token: $('input[name=_token]').val(),
 													id: $("#fid").val(),
 													state: $('#s').val(),
 												},
+												headers: {
+        										'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   											 },	
 											success: function(campaign) {
 													console.log(campaign);
 													 listCampaigns(val,dir,1);

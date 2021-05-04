@@ -6,7 +6,7 @@
 				</div>
 
 				<div class="row">
-						<form action="/user/company/{{$id}}/campaigns/submit" method="post">
+						<form action="{{route('campaign_store',['id'=>$id])}}" method="post">
 								@csrf
 								@if ($errors->any())
 										<div class="alert alert-danger" role="alert">

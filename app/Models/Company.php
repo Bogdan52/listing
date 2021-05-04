@@ -10,7 +10,7 @@ class Company extends Model
 	protected $fillable = [
 		'name',
 		'adres',
-		'cui'
+		'cui',
 	];
 	public function campaigns() {
 		return $this->hasMany(Campaign::class);
@@ -18,5 +18,9 @@ class Company extends Model
 	public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+    public function invites()
+    {
+        return $this->hasMany(Invites::class);
     }
 }

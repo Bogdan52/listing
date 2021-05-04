@@ -5,7 +5,7 @@
 						<h1>Add Company</h1>
 				</div>
 				<div class="row">
-						<form action="/user/submit" method="post">
+						<form action="{{route('company_store')}}" method="post">
 								@csrf
 								@if ($errors->any())
 										<div class="alert alert-danger" role="alert">

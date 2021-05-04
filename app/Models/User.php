@@ -28,4 +28,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Company::class);
     }
 
+    public function invites()
+    {
+        return $this->hasMany(Invites::class);
+    }
+
+
 }

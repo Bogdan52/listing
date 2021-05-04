@@ -5,7 +5,7 @@
 						<h1>Add campaigns</h1>
 				</div>
 				<div class="row">
-						<form action="/user/company/$id/campaigns/submit" method="post">
+						<form action="/company/$id/campaigns/create" method="post">
 								@csrf
 								@if ($errors->any())
 										<div class="alert alert-danger" role="alert">

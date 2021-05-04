@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
-use App\Models\CampaignData;
+use App\Models\CampaignMetric;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Auth;
+use Carbon\Carbon;
 class CampaignsController extends Controller
 {
 		/**
@@ -19,14 +20,14 @@ class CampaignsController extends Controller
 			$user = Auth::user();
 				$company = Company::find($id);
 		if ($user->can('view', $company)) {
-					$campaigns= Campaign::where('company_id','=',$id)->with('campaignData')->get();
+					$campaigns= Campaign::where('company_id','=',$id)->with('campaignMetric')->get();
 								return view('campaigns',['campaigns' => $campaigns,'id'=>$id]);
 								 } else {
 			echo 'Not Authorized.';
 		}
 		}
 
-		public function submit($id)
+		public function create($id)
 		{
 			$user = Auth::user();
 				$company = Company::find($id);
@@ -41,10 +42,11 @@ class CampaignsController extends Controller
 			
 			//$request = Request::all();
 
-		$campaigns= Campaign::join('campaigns_data', 'campaigns.id', '=', 'campaigns_data.campaign_id')
-			->where('company_id','=',$id)
+		$campaigns= Campaign::where('company_id','=',$id)
 			->orderBy($request->value,$request->direction )
 			->paginate(10);
+		
+
 		// if ($request->ajax()) {
 		return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render()]);
 			//}
@@ -56,9 +58,7 @@ class CampaignsController extends Controller
 		 *
 		 * @return \Illuminate\Http\Response
 		 */
-		public function create()
-		{
-		}
+
 
 		/**
 		 * Store a newly created resource in storage.
@@ -77,10 +77,11 @@ class CampaignsController extends Controller
 				$campaign = Campaign::create([
 						'name' => $request->name,
 						'state'=> 'draft',
+						'buget'=> $request->buget,
 						//'company_id'=>$id
 				]);
-				$campaign_data= CampaignData::create([
-						'buget'=> $request->buget,
+				$campaign_metric= CampaignMetric::create([
+						'date'=>Carbon::now(),
 						'click'=>'0',
 						'views'=>'0',
 						'spent'=>'0',
@@ -88,10 +89,10 @@ class CampaignsController extends Controller
 				]);
 				//$comp= Company::where('id','=',$id)->get();
 				$campaign->company()->associate($id);
-				$campaigns_data =$campaign_data->save();
+				$campaign_metrics =$campaign_metric->save();
 				$campaigns = $campaign->save();
 		
-				return redirect('/user/company/'.$id.'/campaigns');
+				return redirect()->route('company_campaigns',['id'=>$id]);
 		}
 
 		/**
@@ -123,12 +124,12 @@ class CampaignsController extends Controller
 		 * @param  \App\Campaign  $campaign
 		 * @return \Illuminate\Http\Response
 		 */
-		public function updateState($id,$state)
+		public function updateState(Request $request)
 		{	
 			 	
-				 $campaign = Campaign::find($id);
+				 $campaign = Campaign::find($request->id);
 
-				 $campaign->state = $state;
+				 $campaign->state = $request->state;
 
 				 $campaign->save();
 
@@ -141,12 +142,12 @@ class CampaignsController extends Controller
 		 * @param  \App\Campaign  $campaign
 		 * @return \Illuminate\Http\Response
 		 */
-		public function destroy($id)
+		public function destroy(Request $request)
 		{
 
 			//dd($id);
-				$camp=Campaign::find($id);
-				$camp->campaignData->delete();
+				$camp=Campaign::find($request->id);
+				$camp->campaignMetric->delete();
 				$camp->delete();	
 		}
 }

@@ -4,7 +4,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Campaign;
-use App\Models\Data;
+use App\Models\CampaignMetric;
+use App\Models\Invite;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -20,19 +21,39 @@ use App\Http\Controllers\Auth\LoginController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/user','UsersController@index')->middleware('auth');
+Route::middleware('auth')->group(function () {
+
+
+Route::get('/user','UsersController@index')->name('user_index');
+
 //Route::get('/campaigns','CampaignsController@index')->middleware('auth');
 
-Route::get('/user/submit', 'CompaniesController@submit')->middleware('auth');
-Route::post('/user/submit', 'CompaniesController@store')->middleware('auth');
-Route::get('/user/company/{id}', 'CompaniesController@index')->middleware('auth');
-Route::get('/user/company/{id}/campaigns', 'CampaignsController@index')->middleware('auth');
-Route::get('/company/{id}/campaigns_list', 'CampaignsController@campaigns_list')->middleware('auth');
-Route::delete('/campaigns/delete/{id}/{_token}', 'CampaignsController@destroy')->middleware('auth');
-Route::post('/campaigns/update/{id}/{state}', 'CampaignsController@updateState')->middleware('auth');
+Route::get('/user/company/{id}', 'CompaniesController@index')->name('company_index');
+Route::get('/company/create', 'CompaniesController@create')->name('company_create');
+Route::post('/company/create', 'CompaniesController@store')->name('company_store');
+Route::delete('/company/delete', 'CompaniesController@destroy')->name('company_delete');
+Route::get('/company/company_list', 'CompaniesController@company_list')->name('company_list');
 
-Route::get('/user/company/{id}/campaigns/submit', 'CampaignsController@submit')->middleware('auth');
-Route::post('/user/company/{id}/campaigns/submit', 'CampaignsController@store')->middleware('auth');
+
+
+Route::get('/company/{id}/campaigns', 'CampaignsController@index')->name('company_campaigns');
+Route::get('/company/{id}/campaigns_list', 'CampaignsController@campaigns_list')->name('campaigns_list');
+
+
+Route::get('/user/user_list', 'UsersController@user_list')->name('user_list');
+
+
+Route::delete('/campaigns/delete', 'CampaignsController@destroy')->name('campaign_delete');
+Route::post('/campaigns/update', 'CampaignsController@updateState')->name('campaign_update');
+Route::get('/company/{id}/campaigns/create', 'CampaignsController@create')->name('campaign_create');
+Route::post('/company/{id}/campaigns/create', 'CampaignsController@store')->name('campaign_store');
+
+Route::post('/invite/create', 'InvitesController@store')->name('invite_create');
+Route::get('/invite/invites_list', 'InvitesController@invites_list')->name('invites_list');
+Route::delete('/invite/delete', 'InvitesController@destroy')->name('invite_delete');
+Route::post('/invite/accept', 'InvitesController@accept')->name('invite_accept');
+
+});
 Auth::routes();
 
-Route::get('/user', 'UsersController@index')->name('home')->middleware('auth');
+//Route::get('/user', 'UsersController@index')->name('home');

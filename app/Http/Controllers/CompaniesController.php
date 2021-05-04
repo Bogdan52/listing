@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -15,11 +16,13 @@ class CompaniesController extends Controller
 		 */
 		public function index($id)
 		{
-			$user = Auth::user();
+			$user=Auth::user();
+			
 			$company = Company::find($id);
 		if ($user->can('view', $company)) {
-			$users= $company->users()->get();
-			return view('company',['company' => $company,'users'=>$users]);
+			
+			return view('company',['company' => $company]);
+	
 		} else {
 			echo 'Not Authorized.';
 		}
@@ -28,20 +31,31 @@ class CompaniesController extends Controller
 
 				
 		}
-		public function submit()
+		public function create()
 				{
 								 return view('submitcompany');
 				}
+
+		public function company_list()
+		{	
+			
+					$id=Auth::id();
+					$user = User::find($id);
+					$companies= $user->companies()->get();
+		
+		// if ($request->ajax()) {
+		return response()->json(['html' => view('company_list',['companies'=>$companies])->render()]);
+			//}
+			//return view('campaigns_list', compact('campaigns'));
+			//return response()->json(['id'=>'2','name'=>'Test1','buget'=>'2']);
+		}
 
 		/**
 		 * Show the form for creating a new resource.
 		 *
 		 * @return \Illuminate\Http\Response
 		 */
-		public function create()
-		{
-				//
-		}
+
 
 		/**
 		 * Store a newly created resource in storage.
@@ -52,30 +66,19 @@ class CompaniesController extends Controller
 		public function store(Request $request)
 		{
 			 $data=$request->validate([
-					'name' => 'required|max:255',
-					'cui'  => 'required'
+					'name' => 'required|max:255|unique:companies,name',
+					'cui'  => 'required|unique:companies,cui',
 				]);
-				$exemple=Company::where('cui', '=', $request->cui)->exists();
-							//	dd($exemple);
-				if ($exemple) {
-					$comp=Company::where('cui', '=', $request->cui)->get()->first();
-				  $user = auth()->user();
-				  $user->companies()->sync($comp->id,false);
-							//dd($comp);
-				 }
-				 else
-				 {	
-				 		$company = Company::create([
-							'name' => $request->name,
-							'adres'=>$request->adres,
-							'cui'=>$request->cui
-						]);
-						$id=Auth::id();
-						$company->users()->attach($id);
-						$companies = $company->save();
-									
-				 }
-				return redirect('/user');
+				$company = Company::create([
+					'name' => $request->name,
+					'adres'=>$request->adres,
+					'cui'=>$request->cui
+				]);
+					$id=Auth::id();
+					$company->users()->attach($id);
+					$companies = $company->save();
+
+				return redirect()->route('user_index',['company'=>$company]);
 		}
 
 		/**
@@ -118,10 +121,15 @@ class CompaniesController extends Controller
 		 * @param  \App\Company  $company
 		 * @return \Illuminate\Http\Response
 		 */
-		public function destroy($id)
+		public function destroy(Request $request)
 		{
-			  // $comp = Company::findOrFail($id);
-			  // $comp->campaigns->delete();
-			  // $comp->delete();
+				 $comp = Company::find($request->id);
+				 $comp->users()->detach();
+				 $campaigns=$comp->campaigns()->get();
+				//  foreach ($campaigns as $camp) {
+				// 	$camp->campaignData->delete();
+				// $camp->delete();	
+				//  }
+				 $comp->delete();
 		}
 }

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{{ url('/css/style2.css') }}" > 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
-	<script src="~/scripts/jquery.dataTables.min.js"></script>  
+ 
 	@csrf
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -121,7 +121,7 @@ function updateItem() {
 							$('.modal-footer').on('click', '.invuser', function() {
 								
 									$.ajax({
-											 	 
+												 
 												 url: "{{route('invite_create')}}",
 												 method:"POST",
 												 data: {
@@ -129,11 +129,11 @@ function updateItem() {
 													cid:{{$company->id}}
 												},
 												headers: {
-        										'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-   											 },	
-											success: function(campaign) {
+														'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+												 },	
+												success: function(campaign) {
 													console.log(invc);
-													 listUser('{{$company->id}}');
+													listUser('{{$company->id}}');
 											}
 								 });
 

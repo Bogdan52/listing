@@ -17,37 +17,24 @@ class CompaniesController extends Controller
 		public function index($id)
 		{
 			$user=Auth::user();
-			
 			$company = Company::find($id);
-		if ($user->can('view', $company)) {
-			
-			return view('company',['company' => $company]);
-	
-		} else {
-			echo 'Not Authorized.';
-		}
-
-
-
-				
+				if ($user->can('view', $company)) {
+					return view('company',['company' => $company]);
+				} else {
+					echo 'Not Authorized.';
+				}	
 		}
 		public function create()
-				{
-								 return view('submitcompany');
-				}
+		{
+			 return view('submitcompany');
+		}
 
 		public function company_list()
 		{	
-			
-					$id=Auth::id();
-					$user = User::find($id);
-					$companies= $user->companies()->get();
-		
-		// if ($request->ajax()) {
-		return response()->json(['html' => view('company_list',['companies'=>$companies])->render()]);
-			//}
-			//return view('campaigns_list', compact('campaigns'));
-			//return response()->json(['id'=>'2','name'=>'Test1','buget'=>'2']);
+			$id=Auth::id();
+			$user = User::find($id);
+			$companies= $user->companies()->get();
+			return response()->json(['html' => view('company_list',['companies'=>$companies])->render()]);
 		}
 
 		/**

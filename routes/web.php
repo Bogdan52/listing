@@ -34,11 +34,9 @@ Route::post('/company/create', 'CompaniesController@store')->name('company_store
 Route::delete('/company/delete', 'CompaniesController@destroy')->name('company_delete');
 Route::get('/company/company_list', 'CompaniesController@company_list')->name('company_list');
 
-
-
 Route::get('/company/{id}/campaigns', 'CampaignsController@index')->name('company_campaigns');
 Route::get('/company/{id}/campaigns_list', 'CampaignsController@campaigns_list')->name('campaigns_list');
-
+Route::post('/campaigns/import', 'CampaignsController@import')->name('campaigns_import');
 
 Route::get('/user/user_list', 'UsersController@user_list')->name('user_list');
 
@@ -52,6 +50,15 @@ Route::post('/invite/create', 'InvitesController@store')->name('invite_create');
 Route::get('/invite/invites_list', 'InvitesController@invites_list')->name('invites_list');
 Route::delete('/invite/delete', 'InvitesController@destroy')->name('invite_delete');
 Route::post('/invite/accept', 'InvitesController@accept')->name('invite_accept');
+
+Route::get('/test', function () {
+    return view('test');
+})->name('test');
+
+Route::get('/campaignmetric/index', 'CampaignMetricsController@index')->name('campaignmetrics_index');
+
+Route::post('file-import', 'CampaignMetricsController@import')->name('file-import');
+Route::get('file-export', 'CampaignsController@export')->name('file-export');
 
 });
 Auth::routes();

@@ -4,7 +4,6 @@
 <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" > 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
-<script src="~/scripts/jquery.dataTables.min.js"></script>  
 @csrf
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -187,7 +186,6 @@ $(document).ready(listCompany());
 										</tr>
 										</thead>
 										<tbody id="ilist">
-									
 										</tbody>
 									</table>
 								</div>

@@ -1,30 +1,55 @@
 		
-		#thHover:hover{
+		.testHover:hover{
 			background-color: lightgrey;
 			color: black;
 
 		}
+		.nameCol{
+			padding: 5px;
+			width: 50vh;
+			text-align-last:  left;
 
+		}
+		.baseCol{
+			width: 20vh;
+			text-align-last:  right;
+		}
+		.bugetCol{
+			width: 25vh
+		}
+
+		table{
+			table-layout: fixed;
+			
+		}
+		tr{
+			border-left: 1px solid lightgrey;
+			border-top: 1px solid lightgrey;
+			border-bottom: 1px solid lightgrey;
+			border-right: 1px solid lightgrey;
+		}
 		th {
 			padding: 10px;
 			text-align: center;
 			margin: 5px;
-			font-size: 20px;
-			border-bottom: 2px solid black;
-			width: 100vh;
+			font-size: 14px;
+			border-bottom: 1px solid lightgrey;
+
 		}
 		td {
 			margin: 5px;
 			text-align: center;
-			font-size: 15px;
-			border-bottom: 1px solid black;
+			font-size: 13px;
+			border-bottom: 1px solid lightgrey;
+
 		}
 		.button1 {
-			background-color: #008CBA; 
+			background-color: #3489D0; 
 			color: black; 
 			font-size: 15px;
-			border: 2px solid #008CBA;
-			border-radius: 12px;
+			border: 2px solid #3489D0;
+			border-radius: 15px;
+			padding: 3px;
 		}
 
 		.button:hover {
@@ -37,18 +62,174 @@
 			background-color: white;
 		}
 		.button2 {
-			background-color: #008CBA; 
+			background-color: #3489D0; 
 			color: black; 
 			font-size: 12px;
-			border: 2px solid #008CBA;
-			border-radius: 12px;
+			border: 2px solid #3489D0;
+			border-radius: 20px;
 		}
+		.button3 {
+			background-color: white; 
+			color: black; 
+			font-size: 20px;
+			border: 2px solid lightgrey;
+			border-radius: 20px;
 
-		.button:hover {
-			background-color: white;
-			color: black;
 		}
 
 		.stateDD{
 			width: 350px;
 		}
+
+		#campaignsTable{
+				overflow:auto;
+			width: 170vh;
+		
+		}
+		#campaignsTable tbody td{
+				
+			height: 5vh;			
+		}
+		
+		#campaignsTable thead th{
+			padding: 5px;
+			position: sticky; 
+			top: 0;
+			background: white;
+
+		}
+		#campaignsTable thead {
+			
+			background: white;
+
+		}
+		#campaignsTable  th{
+			padding: 5px;
+			position: sticky; 
+			top: 0;
+			background: white;
+
+		}
+
+		.my-custom-scrollbar {
+		position: relative;
+		height: 55vh;
+		overflow: auto;
+		background: #fff;
+		
+		}	
+		.table-wrapper-scroll-y {
+		display: block;
+		}
+
+		.scrollbar-secondary::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+		background-color: #F5F5F5;
+		border-radius: 10px; }
+
+		.scrollbar-secondary::-webkit-scrollbar {
+		width: 7px;
+		height: 7px;
+		background-color: #F5F5F5; }
+
+		.scrollbar-secondary::-webkit-scrollbar-thumb {
+		border-radius: 5px;
+		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+		background-color:  lightgray; }
+
+		#dropdownCampaigns{
+			font-size: 14px;
+		}
+		.page-link{
+
+			background: white;
+			border:none;
+			color:black;
+
+		}
+
+		.page-link:{
+
+			color: lightgray;
+		}
+
+		.progress{
+			margin-left: 30px;
+			margin-right: 10px;
+			height: 10px;
+		}
+		.overspent{
+				background: #C60000;
+		}
+		.tableButton
+		{
+			border: none;
+			background: white;
+		}
+		.dropdown-item{
+
+			text-align-last: left;
+		}
+
+		.filterButton{
+			border: 1px solid lightgray;
+			border-radius: 15px;
+		}
+
+		.dropdown-menu {
+    width: 30px ;
+    height: 150px ;
+		}
+		
+		#bugetDropDown{
+			width: 200px ;
+    height: 50px ;
+		}
+
+
+		/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}

@@ -19,20 +19,18 @@ class InvitesController extends Controller
 				//
 		}
 		public function invites_list(Request $request)
-				{   
-						$id=Auth::id();
-
+		{   
+			$id=Auth::id();
 			//	$user = User::find($id);
 			//	$companies= $user->companies()->get();
-				$invites=Invite::where('user_id','=',$id)->get();
-				$inviteing_companies=[];
-				foreach ($invites as $invite) {
-					$company=Company::find($invite->company_id);
-					$inviteing_companies[]=$company;
-				}
-							return response()->json(['html' => view('invites_list',['inviteing_companies'=>$inviteing_companies])->render()]);
-				
-				}
+			$invites=Invite::where('user_id','=',$id)->get();
+			$inviteing_companies=[];
+			foreach ($invites as $invite) {
+				$company=Company::find($invite->company_id);
+				$inviteing_companies[]=$company;
+			}
+			return response()->json(['html' => view('invites_list',['inviteing_companies'=>$inviteing_companies])->render()]);			
+		}
 		/**
 		 * Show the form for creating a new resource.
 		 *
@@ -51,16 +49,14 @@ class InvitesController extends Controller
 		 */
 		public function store(Request $request)
 		{
-					$id=User::where('email','=',$request->email)->first()->id;
-					
-								$invite = Invite::create([
-												'company_id' => $request->cid,
-												'user_id'=> $id,
-												//'company_id'=>$id
-								]);
+			$id=User::where('email','=',$request->email)->first()->id;		
+			$invite = Invite::create([
+				'company_id' => $request->cid,
+				'user_id'=> $id,
+				//'company_id'=>$id
+			]);
 
-								$invites = $invite->save();
-
+			$invites = $invite->save();
 		}
 
 		public function accept(Request $request)
@@ -69,9 +65,7 @@ class InvitesController extends Controller
 					$cid=$request->id;
 					//dd($cid);
 					$user->companies()->sync($cid, false);
-							//	return redirect()->route('company_index');
-
-
+					//	return redirect()->route('company_index');
 		}
 
 		/**
@@ -117,7 +111,6 @@ class InvitesController extends Controller
 		public function destroy(Request $request)
 		{		
 				$uid=Auth::id();
-				
 				$invites=Invite::where('company_id','=',$request->id)->where('user_id','=',$uid)->get();
 				foreach ($invites as $inv) {
 					$inv->delete();

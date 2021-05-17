@@ -17,7 +17,6 @@ class UsersController extends Controller
 		public function index()
 		{
 				$id=Auth::id();
-
 				$user = User::find($id);
 				$companies= $user->companies()->get();
 				$invites=Invite::where('user_id','=',$id)->get();
@@ -26,22 +25,16 @@ class UsersController extends Controller
 
 
 		public function user_list(Request $request)
-				{   
-						$user = Auth::user();
-						$company = Company::find($request->id);
+		{   
+				$user = Auth::user();
+				$company = Company::find($request->id);
 				if ($user->can('view', $company)) {
 						$users= $company->users()->get();
-							return response()->json(['html' => view('user_list',['users'=>$users])->render()]);
+						return response()->json(['html' => view('user_list',['users'=>$users])->render()]);
 				} else {
 						echo 'Not Authorized.';
 				}
-				
-				// if ($request->ajax()) {
-			
-						//}
-						//return view('campaigns_list', compact('campaigns'));
-						//return response()->json(['id'=>'2','name'=>'Test1','buget'=>'2']);
-				}
+		}
 		/**
 		 * Show the form for creating a new resource.
 		 *

@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use App\Models\Company;
 use Auth;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\CampaignsImport;
+use App\Exports\CampaignsExport;
+use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 class CampaignsController extends Controller
 {
 		/**
@@ -18,40 +22,47 @@ class CampaignsController extends Controller
 		public function index($id)
 		{			
 			$user = Auth::user();
-				$company = Company::find($id);
-		if ($user->can('view', $company)) {
-					$campaigns= Campaign::where('company_id','=',$id)->with('campaignMetric')->get();
-								return view('campaigns',['campaigns' => $campaigns,'id'=>$id]);
-								 } else {
-			echo 'Not Authorized.';
-		}
+			$company = Company::find($id);
+			
+				if ($user->can('view', $company)) {
+					return view('campaigns',['id'=>$id]);
+				} else {
+					echo 'Not Authorized.';
+				}
 		}
 
 		public function create($id)
 		{
 			$user = Auth::user();
-				$company = Company::find($id);
-		if ($user->can('view', $company)) {
-								 return view('submit',['id' => $id]);
-								 } else {
-			echo 'Not Authorized.';
+			$company = Company::find($id);
+				if ($user->can('view', $company)) {
+					return view('submit',['id' => $id]);
+				} else {
+					echo 'Not Authorized.';
+				}
 		}
-		}
+
+		
 		public function campaigns_list(Request $request,$id)
 		{	
-			
-			//$request = Request::all();
-
-		$campaigns= Campaign::where('company_id','=',$id)
-			->orderBy($request->value,$request->direction )
-			->paginate(10);
 		
+		//dd($request->direction);
+			if(empty($request->states)){
+				$campaigns= Campaign::where('company_id','=',$id)
+					->orderBy($request->value,$request->direction)
+					->paginate($request->rows);
 
-		// if ($request->ajax()) {
-		return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render()]);
-			//}
-			//return view('campaigns_list', compact('campaigns'));
-			//return response()->json(['id'=>'2','name'=>'Test1','buget'=>'2']);
+				return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render(),'htmlt' => view('campaigns_list_table',['campaigns'=>$campaigns])->render()]);
+
+				}
+				else
+				{
+					$campaigns= Campaign::where('company_id','=',$id)
+					->filter( ['state' => $request->states] )
+					->orderBy($request->value,$request->direction)
+					->paginate($request->rows,['*'],'page');
+
+				return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render(),'htmlt' => view('campaigns_list_table',['campaigns'=>$campaigns])->render()]);				}
 		}
 		/**
 		 * Show the form for creating a new resource.
@@ -59,7 +70,11 @@ class CampaignsController extends Controller
 		 * @return \Illuminate\Http\Response
 		 */
 
+	 public function export(Request $request) 
+    {	
+       return Excel::download(new CampaignsExport($request->id), 'campaigns-collection.csv');
 
+    }
 		/**
 		 * Store a newly created resource in storage.
 		 *
@@ -126,13 +141,9 @@ class CampaignsController extends Controller
 		 */
 		public function updateState(Request $request)
 		{	
-			 	
 				 $campaign = Campaign::find($request->id);
-
 				 $campaign->state = $request->state;
-
 				 $campaign->save();
-
 				 return response ()->json ( $campaign );
 		}
 

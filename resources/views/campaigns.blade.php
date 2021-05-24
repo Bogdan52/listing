@@ -39,6 +39,15 @@
 	var checked_for_delete =[];
 	var column_filter=[];
 		function listCampaigns(sent_value,sent_direction,page,rows){
+				
+				if (sent_direction==dir) {
+					sent_direction="desc";
+				}
+				else
+				{
+					sent_direction="asc";
+				}
+
 			val=sent_value;
 			dir=sent_direction;
 			row=rows;
@@ -59,6 +68,7 @@
 						console.log(result.html);
 						$("#dataTable").html(result.htmlt);
 						$("#test").html(result.html);
+						column_filter=[];
 						reCheckCheckBox();
 						checked_for_delete=[];
 				}	

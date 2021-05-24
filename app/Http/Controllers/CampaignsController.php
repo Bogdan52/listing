@@ -54,33 +54,35 @@ class CampaignsController extends Controller
 					->where('buget','<=',$request->max_buget)
 					->orderBy($request->value,$request->direction)
 					->paginate($request->rows);
-				}else
+				}
+				else
 				{
-				$campaigns= Campaign::where('company_id','=',$id)
+					$campaigns= Campaign::where('company_id','=',$id)
 					->where('buget','<=',$request->max_buget)
 					->where('name', 'LIKE', '%'.$request->search.'%')
 					->orderBy($request->value,$request->direction)
 					->paginate($request->rows);
 				}
 				return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render(),'htmlt' => view('campaigns_list_table',['campaigns'=>$campaigns])->render()]);
-
-				}
-				else
+			}
+			else
+			{
+				if(empty($request->search))
 				{
-					if(empty($request->search)){
 					$campaigns= Campaign::where('company_id','=',$id)
 					->filter( ['state' => $request->states] )
 					->where('buget','<=',$request->max_buget)
 					->orderBy($request->value,$request->direction)
 					->paginate($request->rows,['*'],'page');
-				}else{
+				}
+				else
+				{
 					$campaigns= Campaign::where('company_id','=',$id)
 					->filter( ['state' => $request->states] )
 					->where('buget','<=',$request->max_buget)
 					->where('name', 'LIKE', '%'.$request->search.'%')
 					->orderBy($request->value,$request->direction)
 					->paginate($request->rows,['*'],'page');
-
 				}
 				return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render(),'htmlt' => view('campaigns_list_table',['campaigns'=>$campaigns])->render()]);				
 			}
@@ -93,7 +95,7 @@ class CampaignsController extends Controller
 
 	 public function export(Request $request) 
 		{	
-			
+
 			 return Excel::download(new CampaignsExport($request), 'campaigns-collection.csv');
 
 
@@ -181,11 +183,12 @@ class CampaignsController extends Controller
 			//dd($id);
 			$user = Auth::user();
 			$company = Company::find($request->cid);
-				if ($user->can('view', $company)) {
+
+			if ($user->can('view', $company)) 
+			{
 				$camp=Campaign::find($request->id);
 				$camp->campaignMetric()->delete();
 				$camp->delete();	
-				
-				}
+			}
 		}
 }

@@ -18,42 +18,47 @@ class CampaignsExport implements FromCollection,WithHeadings
 
 		public function collection()
 		{
-			 $request= $this->request;
+			$request= $this->request;
 
-				if(empty($request->states)){
-								if(empty($request->search))
-								{
-										$campaigns= Campaign::where('company_id','=',$request->id)
-										->where('buget','<=',$request->max_buget)
-										->orderBy($request->value,$request->direction)
-										->paginate($request->rows);
-								}else
-								{
-								$campaigns= Campaign::where('company_id','=',$request->id)
-										->where('buget','<=',$request->max_buget)
-										->where('name', 'LIKE', '%'.$request->search.'%')
-										->orderBy($request->value,$request->direction)
-										->get();
-								}
-								}
-								else
-								{
-										if(empty($request->search)){
-										$campaigns= Campaign::where('company_id','=',$request->id)
-										->filter( ['state' => $request->states] )
-										->where('buget','<=',$request->max_buget)
-										->orderBy($request->value,$request->direction)
-										->get();
-								}else{
-										$campaigns= Campaign::where('company_id','=',$request->id)
-										->filter( ['state' => $request->states] )
-										->where('buget','<=',$request->max_buget)
-										->where('name', 'LIKE', '%'.$request->search.'%')
-										->orderBy($request->value,$request->direction)
-										->get();
-								}
-		}
-		return $campaigns;
+				if(empty($request->states))
+				{
+					if(empty($request->search))
+					{
+							$campaigns= Campaign::where('company_id','=',$request->id)
+							->where('buget','<=',$request->max_buget)
+							->orderBy($request->value,$request->direction)
+							->paginate($request->rows);
+					}
+					else
+					{
+						$campaigns= Campaign::where('company_id','=',$request->id)
+						->where('buget','<=',$request->max_buget)
+						->where('name', 'LIKE', '%'.$request->search.'%')
+						->orderBy($request->value,$request->direction)
+						->get();
+					}		
+				}
+				else
+				{
+					if(empty($request->search))
+					{
+						$campaigns= Campaign::where('company_id','=',$request->id)
+							->filter( ['state' => $request->states] )
+							->where('buget','<=',$request->max_buget)
+							->orderBy($request->value,$request->direction)
+							->get();
+					}
+					else
+					{
+						$campaigns= Campaign::where('company_id','=',$request->id)
+						->filter( ['state' => $request->states] )
+						->where('buget','<=',$request->max_buget)
+						->where('name', 'LIKE', '%'.$request->search.'%')
+						->orderBy($request->value,$request->direction)
+						->get();
+					}
+				}
+			return $campaigns;
 		}
 		public function headings(): array
 		{

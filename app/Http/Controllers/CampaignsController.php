@@ -48,21 +48,42 @@ class CampaignsController extends Controller
 		
 		//dd($request->direction);
 			if(empty($request->states)){
-				$campaigns= Campaign::where('company_id','=',$id)
+				if(empty($request->search))
+				{
+					$campaigns= Campaign::where('company_id','=',$id)
+					->where('buget','<=',$request->max_buget)
 					->orderBy($request->value,$request->direction)
 					->paginate($request->rows);
-
+				}else
+				{
+				$campaigns= Campaign::where('company_id','=',$id)
+					->where('buget','<=',$request->max_buget)
+					->where('name', 'LIKE', '%'.$request->search.'%')
+					->orderBy($request->value,$request->direction)
+					->paginate($request->rows);
+				}
 				return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render(),'htmlt' => view('campaigns_list_table',['campaigns'=>$campaigns])->render()]);
 
 				}
 				else
 				{
+					if(empty($request->search)){
 					$campaigns= Campaign::where('company_id','=',$id)
 					->filter( ['state' => $request->states] )
+					->where('buget','<=',$request->max_buget)
+					->orderBy($request->value,$request->direction)
+					->paginate($request->rows,['*'],'page');
+				}else{
+					$campaigns= Campaign::where('company_id','=',$id)
+					->filter( ['state' => $request->states] )
+					->where('buget','<=',$request->max_buget)
+					->where('name', 'LIKE', '%'.$request->search.'%')
 					->orderBy($request->value,$request->direction)
 					->paginate($request->rows,['*'],'page');
 
-				return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render(),'htmlt' => view('campaigns_list_table',['campaigns'=>$campaigns])->render()]);				}
+				}
+				return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render(),'htmlt' => view('campaigns_list_table',['campaigns'=>$campaigns])->render()]);				
+			}
 		}
 		/**
 		 * Show the form for creating a new resource.
@@ -71,10 +92,12 @@ class CampaignsController extends Controller
 		 */
 
 	 public function export(Request $request) 
-    {	
-       return Excel::download(new CampaignsExport($request->id), 'campaigns-collection.csv');
+		{	
+			
+			 return Excel::download(new CampaignsExport($request), 'campaigns-collection.csv');
 
-    }
+
+		}
 		/**
 		 * Store a newly created resource in storage.
 		 *
@@ -155,10 +178,14 @@ class CampaignsController extends Controller
 		 */
 		public function destroy(Request $request)
 		{
-
 			//dd($id);
+			$user = Auth::user();
+			$company = Company::find($request->cid);
+				if ($user->can('view', $company)) {
 				$camp=Campaign::find($request->id);
-				$camp->campaignMetric->delete();
+				$camp->campaignMetric()->delete();
 				$camp->delete();	
+				
+				}
 		}
 }

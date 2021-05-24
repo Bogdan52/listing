@@ -1,7 +1,5 @@
-<tr><td  class="nameCol">Results from {{$campaigns->count()}} campaigns</td>
+<tr><td  class="nameCol1" align="left">Results from {{$campaigns->count()}} campaigns</td>
 
-			<td class="baseCol"></td>
-			<td class="baseCol"></td>
 			<td class="baseCol status_CheckBox"></td>
 			<td class="baseCol clicks_CheckBox" id="sumclicks"></td>
 			<td class="baseCol views_CheckBox" id="sumviews"></td>
@@ -14,16 +12,28 @@
 $totalClicks=0; 
 $totalViews=0; 
 ?>
+<script type="text/javascript">
+	$( ".nameCol" ).hover(
+  function() {
+  	x=this.id;
+  	 button=$( "<button type='button' style='float:right; font-size:14px;' class='button3 testHover'>View</button>");
+  	button.click( function(){ getMetrics(x,'2000-01-01','{{date("Y-m-d")}}');});
+    $( this ).append( button );
+  }, function() {
+    $( this ).find( "button" ).last().remove();
+  }
+);
+
+</script>
 @foreach ($campaigns as $campaign)
+
 		<tr>
-		<td  title="ID: {{$campaign->id}}" class="nameCol"><div class="form-check"><input class="form-check-input" type="checkbox" value="test" ><label class="form-check-label" for="defaultCheck1">
+		<td  title="ID: {{$campaign->id}}" id="{{$campaign->id}}" class="nameCol"><div class="form-check" style="float:left;"><input class="form-check-input" type="checkbox" id="name{{$campaign->id}}" onchange="nameCheckList(this.id,'{{$campaign->id}}')"><label class="form-check-label" for="defaultCheck1">
     {{$campaign->name}}
   </label></div> </td>
-			
+			<!-- onclick="getMetrics('{{$campaign->id}}','2000-01-01','{{date("Y-m-d")}}')" -->
 			 
-			<td class="baseCol" onclick="getMetrics('{{$campaign->id}}','2000-01-01','{{date("Y-m-d")}}')"> </td>
-			<td class="baseCol" onclick="getMetrics('{{$campaign->id}}','2000-01-01','{{date("Y-m-d")}}')"> </td>
-			<td class="baseCol status_CheckBox" onclick="getMetrics('{{$campaign->id}}','2000-01-01','{{date("Y-m-d")}}')" ><div align="right">{{$campaign->state}}
+			<td class="baseCol status_CheckBox" ><div align="right">{{$campaign->state}}
 <?php 
 if($campaign->state=="draft") 
 {
@@ -56,8 +66,8 @@ if($campaign->state=="draft")
 			$totalViews+=$views;
 			$spent=$campaign->campaignMetric->sum('spent');
 			?>
-			<td class="baseCol clicks_CheckBox" onclick="getMetrics('{{$campaign->id}}','2000-01-01','{{date("Y-m-d")}}')">{{$click}}</td>
-			<td class="baseCol views_CheckBox" onclick="getMetrics('{{$campaign->id}}','2000-01-01','{{date("Y-m-d")}}')">{{$views}}</td>
+			<td class="baseCol clicks_CheckBox">{{$click}}</td>
+			<td class="baseCol views_CheckBox" >{{$views}}</td>
 			<td class="bugetCol buget_CheckBox">
 				<?php 
 					$x=$spent/$campaign->buget;
@@ -76,9 +86,9 @@ if($campaign->state=="draft")
 		</div>
 		
 			</td>
-			
+			<td class="baseCol"></td>
 			<td class="baseCol"><button class="edit-modal button button1" onclick="updateItem('{{$campaign->id}}','{{$campaign->state}}')">Update</button></td>
-			<td class="baseCol"><button class="button button1" onclick="deleteItem('{{$campaign->id}}')">Delete</button></td>
+			
 		</tr>
 @endforeach
 <script type="text/javascript">

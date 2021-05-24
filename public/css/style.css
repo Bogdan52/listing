@@ -1,4 +1,5 @@
 		
+		
 		.testHover:hover{
 			background-color: lightgrey;
 			color: black;
@@ -6,7 +7,13 @@
 		}
 		.nameCol{
 			padding: 5px;
-			width: 50vh;
+			width: 70vh;
+			text-align-last:  left;
+
+		}
+		.nameCol1{
+			padding: 5px;
+			width: 70vh;
 			text-align-last:  left;
 
 		}
@@ -113,7 +120,7 @@
 
 		.my-custom-scrollbar {
 		position: relative;
-		height: 55vh;
+		height: 60vh;
 		overflow: auto;
 		background: #fff;
 		
@@ -165,6 +172,7 @@
 		{
 			border: none;
 			background: white;
+			border-color: grey;
 		}
 		.dropdown-item{
 
@@ -172,7 +180,7 @@
 		}
 
 		.filterButton{
-			border: 1px solid lightgray;
+			border: 1px solid grey;
 			border-radius: 15px;
 		}
 
@@ -182,54 +190,26 @@
 		}
 		
 		#bugetDropDown{
-			width: 200px ;
-    height: 50px ;
+			width: 300px ;
+    height: 80px ;
 		}
 
 
-		/* Tooltip container */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+#searchBar{
+
+	font-size: 20px;
+	margin: none;
+	border-radius: 5px;
+	border: 1px solid lightgray;
 }
 
-/* Tooltip text */
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-
-  /* Position the tooltip text */
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-
-  /* Fade in tooltip */
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-/* Tooltip arrow */
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
+.button4{
+	margin: none;
+	font-size:17px;
+	font-style: 1;
+	width: 30px;
+	height:30px;
+	border: 1px solid lightgray;
+	background: #3489D0;
+	border-radius: 5px;
 }

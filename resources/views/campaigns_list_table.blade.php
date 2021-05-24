@@ -2,10 +2,7 @@
 <table  class="display" id="campaignsTable" cellspacing="0">
 	<thead>
 		<tr>
-			<th id="" class="nameCol" align="center"></th>
-		<th class="baseCol"></th>
-
-			<th class="baseCol"></th>
+			<th id="" class="nameCol1" align="center"></th>
 			<th id="statusCol" class="baseCol testHover">
 				<div class="btn-group dropstart " style="float:right;">
 					<button type="button" class="tableButton testHover" id="selectColumm" data-toggle="dropdown" aria-haspopup="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
@@ -59,7 +56,13 @@
 				</button>
 			<div class="dropdown-menu" id="bugetDropDown">
 				<a class="dropdown-item">
-					<input type="range" class="form-range" id="customRange1">
+					<span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+					<input type="range" class="border-0" min="0" max="1000000" id="customRange" onchange="setMaxBuget(this.value)" style="width: 180px;">
+					<span class="font-weight-bold indigo-text mr-2 mt-1">1000000</span>
+				</a>
+				<a class="dropdown-item">
+					<button type="button" class="tableButton testHover filterButton" onclick="listCampaigns(val,'asc',1,row)" id="filterButton" style="float:left" >Apply</button>
+					<span id="slider_value" style="float:right">500000</span>
 				</a>
 			</div>
 		</div>
@@ -69,13 +72,17 @@
 			<th class="baseCol"></th>
 		</tr>
 	</thead>
-	
+	<script type="text/javascript">
+	$(document).on('input', '#customRange', function() {
+    $('#slider_value').html( $(this).val() );
+});
+	</script>
 	<tbody id="test">
 	</tbody>
 </table>
 </div>
 <br>
-<div class="d-flex justify-content-left" >
+<div class="d-flex justify-content-left" style="float:left">
 	
 	<div class="dropdown" align="left">
 		<script type="text/javascript">
@@ -93,5 +100,8 @@
   </div>
 </div>
 {!! $campaigns->links() !!} 
+</div>
+<div>
+	<button class="button button1" onclick="deleteCampaigns()" align="right" style="float:right">Delete</button>
 </div>
 

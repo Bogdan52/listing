@@ -9,6 +9,6 @@ $factory->define(Campaign::class, function (Faker $faker) {
     return [
         'name' =>$faker->name,
 		'state'=>$faker->randomElement(array('draft', 'active', 'inactive')),
-		'buget'=>$faker->numberBetween(10000,100000),
+		'buget'=>$faker->numberBetween(1000,100000),
     ];
 });

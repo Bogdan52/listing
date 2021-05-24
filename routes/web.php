@@ -51,10 +51,6 @@ Route::get('/invite/invites_list', 'InvitesController@invites_list')->name('invi
 Route::delete('/invite/delete', 'InvitesController@destroy')->name('invite_delete');
 Route::post('/invite/accept', 'InvitesController@accept')->name('invite_accept');
 
-Route::get('/test', function () {
-    return view('test');
-})->name('test');
-
 Route::get('/campaignmetric/index', 'CampaignMetricsController@index')->name('campaignmetrics_index');
 
 Route::post('file-import', 'CampaignMetricsController@import')->name('file-import');

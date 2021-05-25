@@ -109,14 +109,15 @@ class CompaniesController extends Controller
 		 * @return \Illuminate\Http\Response
 		 */
 		public function destroy(Request $request)
-		{
-				 $comp = Company::find($request->id);
-				 $comp->users()->detach();
-				 $campaigns=$comp->campaigns()->get();
+		{		$uid=Auth::id();
+				$comp = Company::find($request->id);
+				$comp->users()->wherePivot('user_id', '=', $uid)->detach();
+
+				 // $campaigns=$comp->campaigns()->get();
 				//  foreach ($campaigns as $camp) {
 				// 	$camp->campaignData->delete();
 				// $camp->delete();	
 				//  }
-				 $comp->delete();
+				 // $comp->delete();
 		}
 }

@@ -25,13 +25,18 @@ $totalViews=0;
 </script>
 @foreach ($campaigns as $campaign)
 	<tr>
-		<td  title="ID: {{$campaign->id}}" id="{{$campaign->id}}" class="nameCol">
+		<td  title="ID: {{$campaign->id}}" id="{{$campaign->id}}" class="nameCol" >
 			<div class="form-check" style="float:left;"><input class="form-check-input" type="checkbox" id="name{{$campaign->id}}" onchange="nameCheckList(this.id,'{{$campaign->id}}')">
-				<label class="form-check-label" for="defaultCheck1">
+				<label class="form-check-label" for="defaultCheck1" title="ID: {{$campaign->id}}" data-toggle="tooltip" data-placement="top">
 				{{$campaign->name}}
 				</label>
 			</div>
 		</td> 
+		<script type="text/javascript">
+			$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		});
+		</script>
 		<td class="baseCol status_CheckBox" >
 		<div align="right">{{$campaign->state}}
 		<?php 

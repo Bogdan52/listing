@@ -82,7 +82,7 @@ function updateItem() {
 		
 <br>
 <div class="container" id="widthC">
-<button class="button button1" onclick="window.location='{{route('company_campaigns',['id'=>$company->id])}}'" >Viwe Campaigns</button>
+<button class="button button1" onclick="window.location='{{route('company_campaigns',['id'=>$company->id])}}'" >View Campaigns</button>
 
 
 </div><br><br>

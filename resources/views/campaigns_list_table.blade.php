@@ -58,7 +58,7 @@
 					<div class="dropdown-menu" id="bugetDropDown">
 						<a class="dropdown-item">
 							<span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
-							<input type="range" class="border-0" min="0" max="1000000" id="customRange" onchange="setMaxBuget(this.value)" style="width: 180px;">
+							<input type="range" class="border-0" min="0" max="1000000" id="customRange" onchange="setMaxBuget(this.value)" style="width: 180px;" >
 							<span class="font-weight-bold indigo-text mr-2 mt-1">1000000</span>
 						</a>
 						<a class="dropdown-item">
@@ -74,7 +74,9 @@
 				<div style="float:right;" onclick="listCampaigns('buget','asc',1,row)">Buget</div>
 			</th>
 			<th class="baseCol"></th>
-			<th class="baseCol"></th>
+			<th class="baseCol">
+				<button class="button1 button" style="font-size: 14px" onclick="resetFilter()">Reset Filter</button>
+			</th>
 		</tr>
 	</thead>
 	<script type="text/javascript">

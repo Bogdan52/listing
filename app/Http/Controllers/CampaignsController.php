@@ -45,47 +45,25 @@ class CampaignsController extends Controller
 		
 		public function campaigns_list(Request $request,$id)
 		{	
-		
-		//dd($request->direction);
-			if(empty($request->states)){
-				if(empty($request->search))
-				{
-					$campaigns= Campaign::where('company_id','=',$id)
-					->where('buget','<=',$request->max_buget)
-					->orderBy($request->value,$request->direction)
-					->paginate($request->rows);
-				}
-				else
-				{
-					$campaigns= Campaign::where('company_id','=',$id)
-					->where('buget','<=',$request->max_buget)
-					->where('name', 'LIKE', '%'.$request->search.'%')
-					->orderBy($request->value,$request->direction)
-					->paginate($request->rows);
-				}
-				return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render(),'htmlt' => view('campaigns_list_table',['campaigns'=>$campaigns])->render()]);
-			}
-			else
+			$campaigns= Campaign::where('company_id','=',$id)
+			->filter( ['state' => $request->states])
+			->where('buget','<=',$request->max_buget)
+			->orderBy($request->value,$request->direction);
+			
+
+			if(!empty($request->search))
 			{
-				if(empty($request->search))
-				{
-					$campaigns= Campaign::where('company_id','=',$id)
-					->filter( ['state' => $request->states] )
-					->where('buget','<=',$request->max_buget)
-					->orderBy($request->value,$request->direction)
-					->paginate($request->rows,['*'],'page');
-				}
-				else
-				{
-					$campaigns= Campaign::where('company_id','=',$id)
-					->filter( ['state' => $request->states] )
-					->where('buget','<=',$request->max_buget)
-					->where('name', 'LIKE', '%'.$request->search.'%')
-					->orderBy($request->value,$request->direction)
-					->paginate($request->rows,['*'],'page');
-				}
-				return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render(),'htmlt' => view('campaigns_list_table',['campaigns'=>$campaigns])->render()]);				
+
+				$wordArray=explode(" ", $request->search);
+				
+					$campaigns=$campaigns->where(function($camp)use($wordArray) {
+  						foreach ($wordArray as $word) {
+   						 $camp->orWhere('name', 'like', '%'.$word.'%');
+   						}
+  					});
 			}
+			$campaigns=$campaigns->paginate($request->rows,['*'],'page');
+			return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render(),'htmlt' => view('campaigns_list_table',['campaigns'=>$campaigns])->render()]);
 		}
 		/**
 		 * Show the form for creating a new resource.

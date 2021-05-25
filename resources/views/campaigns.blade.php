@@ -281,6 +281,12 @@
 		$(function () {
 			$('[data-toggle="tooltip"]').tooltip()
 		});
+		function resetFilter() {
+		 states =[];
+		 max_buget_val='10000000';
+		 listCampaigns('name','asc',1,10);
+		}
+
 
 		$(document).ready(listCampaigns('name','asc',1,10));
 	</script>

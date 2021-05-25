@@ -95,10 +95,8 @@ class CampaignsController extends Controller
 
 	 public function export(Request $request) 
 		{	
-
-			 return Excel::download(new CampaignsExport($request), 'campaigns-collection.csv');
-
-
+			 return  Excel::download(new CampaignsExport($request), 'campaigns-collection.csv');
+			
 		}
 		/**
 		 * Store a newly created resource in storage.

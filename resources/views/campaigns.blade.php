@@ -157,7 +157,12 @@
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				},
 				success: function(result){
-					///
+					 var hiddenElement = document.createElement('a');
+    				hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(result);
+    				hiddenElement.target = '_blank';
+    				hiddenElement.download = 'campaigns.csv';
+    				hiddenElement.click();
+			
 					
 				}
 			}
@@ -199,10 +204,10 @@
 		{
 			if (confirm("You are about to delete "+checked_for_delete.length+" campaign(s). Continue?")) {
 				for(i=0;i<checked_for_delete.length;i++)
-			 	{
+				{
 					deleteItem(checked_for_delete[i]);
-			 	}
-			 	listCampaigns(val,dir,1,row);
+				}
+				listCampaigns(val,dir,1,row);
 			}
 			return false;
 		}
@@ -248,8 +253,8 @@
 				}
 				else
 				{
-			 		$(colTh).hide();
-			 		$(colTd).hide();
+					$(colTh).hide();
+					$(colTd).hide();
 				}
 		}
 		function reCheckCheckBox()
@@ -452,4 +457,5 @@
 		</div>
 	</div>
 </div>
+<div id="download"></div>
 @endsection

@@ -63,9 +63,13 @@
 						</a>
 						<a class="dropdown-item">
 							<button type="button" class="tableButton testHover filterButton" onclick="listCampaigns(val,'asc',1,row)" id="filterButton" style="float:left" >Apply</button>
-							<span id="slider_value" style="float:right">500000</span>
+							<span id="slider_value" style="float:right"><div class="sliebarVal"></div></span>
 						</a>
 					</div>
+					<script type="text/javascript">
+						$('.sliebarVal').html(max_buget_val);
+						document.getElementById('customRange').value=max_buget_val;
+					</script>
 				</div>
 				<div style="float:right;" onclick="listCampaigns('buget','asc',1,row)">Buget</div>
 			</th>

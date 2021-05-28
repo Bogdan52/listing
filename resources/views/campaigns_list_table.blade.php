@@ -43,7 +43,7 @@
 						</a>
 					</div>
 				</div>	
-				<div style="float:right;" onclick="listCampaigns('state','asc',1,row)">Status
+				<div style="float:right;" onclick="sort('state','asc',1,row)">Status
 				</div>
 			</th>
 			<th id="clickCol" class="baseCol">Click</th>
@@ -71,7 +71,7 @@
 						document.getElementById('customRange').value=max_buget_val;
 					</script>
 				</div>
-				<div style="float:right;" onclick="listCampaigns('buget','asc',1,row)">Buget</div>
+				<div style="float:right;" onclick="sort('buget','asc',1,row)">Buget</div>
 			</th>
 			<th class="baseCol"></th>
 			<th class="baseCol">

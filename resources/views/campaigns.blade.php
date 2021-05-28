@@ -39,15 +39,7 @@
 	var checked_for_delete =[];
 		function listCampaigns(sent_value,sent_direction,page,rows){
 				
-				if (sent_direction==dir)
-				{
-					sent_direction="desc";
-				}
-				else
-				{
-					sent_direction="asc";
-				}
-
+				
 			val=sent_value;
 			dir=sent_direction;
 			row=rows;
@@ -74,8 +66,22 @@
 				} 
 			}
 			);
-			
+
 		}
+		function sort(sent_value,sent_direction,page,rows)
+		{
+			if (sent_direction==dir)
+				{
+					sent_direction="desc";
+				}
+				else
+				{
+					sent_direction="asc";
+				}
+			listCampaigns(sent_value,sent_direction,page,rows);
+		}
+
+		
 		$(function()
 		{
 		 $('div').on('click', '.pagination a',function(event)
@@ -158,10 +164,10 @@
 				},
 				success: function(result){
 					 var hiddenElement = document.createElement('a');
-    				hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(result);
-    				hiddenElement.target = '_blank';
-    				hiddenElement.download = 'campaigns.csv';
-    				hiddenElement.click();
+						hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(result);
+						hiddenElement.target = '_blank';
+						hiddenElement.download = 'campaigns.csv';
+						hiddenElement.click();
 			
 					
 				}
@@ -286,6 +292,7 @@
 		 max_buget_val='10000000';
 		 listCampaigns('name','asc',1,10);
 		}
+
 
 
 		$(document).ready(listCampaigns('name','asc',1,10));

@@ -1,4 +1,4 @@
-
+<div style="border: 2px solid lightgray;padding: 5px; border-radius: 15px">
 	<div align="left">
 		<h4>Campaign name: {{$campaign->name}}</h4>
 	</div>
@@ -52,3 +52,4 @@
 	<div align="right">
 	<button class="button button1"  onclick="listCampaigns('name','asc',1,row)">Close</button>
 	</div>
+</div>

@@ -50,7 +50,9 @@ function updateItem() {
 				<div class="row">
 						<table class="container" >
 							<th>
-										<td><h3> Curent Company</h3>
+										<td>
+											<div style="border: 2px solid lightgray;padding: 5px; border-radius: 15px">
+											<h3> Curent Company</h3>
 											<table class="container"><tr><td class="lateralTBorder">
 												<label>ID: {{$company->id}}</label>
 												</td></tr>
@@ -67,11 +69,15 @@ function updateItem() {
 													<button class="button button1"  onclick="window.location='{{ url("/user/company/{$company->id}/campaigns") }}'">View Campaigns</button>
 												</td></tr> -->
 											</table>
+										</div>
 									</td>
-										<td ><h3>User List <button class="button button1"  onclick="updateItem()">Invite user</button></h3>  
+										<td >
+											<div style="border: 2px solid lightgray;padding: 5px; border-radius: 15px">
 
+											<h3>User List <button class="button button1"  onclick="updateItem()">Invite user</button></h3>  
 											<table id="test" class='container'>
 										</table>
+									</div>
 									</td>
 							</th>
 						</table>

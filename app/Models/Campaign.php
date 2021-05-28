@@ -13,6 +13,9 @@ class Campaign extends Model
 		'name',
 		'state',
 		'buget',
+		'start_date',
+		'end_date',
+		'cimage',
 		'company_id',
 	];
 	private static $whiteListFilter = ['*'];

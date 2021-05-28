@@ -27,6 +27,25 @@
 												<div class="invalid-feedback">{{ $message }}</div>
 										@enderror
 								</div>
+								<div class="form-group">
+										<label for="start_date">Start Date:</label>
+										<input type="date" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" placeholder="" value="{{ old('start_date') }}" min="0">
+										@error('start_date')
+												<div class="invalid-feedback">{{ $message }}</div>
+										@enderror
+										<label for="end_date">End Date:</label>
+										<input type="date" class="form-control @error('end_date') is-invalid @enderror" id="end_date" name="end_date" placeholder="" value="{{ old('end_date') }}" min="0">
+										@error('edate')
+												<div class="invalid-feedback">{{ $message }}</div>
+										@enderror
+								</div>
+								<!-- <div class="form-group">
+										<label for="cimage">Image:</label>
+										<input type="file" id="cimage" name="cimage"  accept="image/*">
+										@error('cimage')
+												<div class="invalid-feedback">{{ $message }}</div>
+										@enderror
+								</div> -->
 								<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 				</div>

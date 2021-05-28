@@ -98,6 +98,10 @@ $totalViews=0;
 				<button class="edit-modal button button1" onclick="updateItem('{{$campaign->id}}','{{$campaign->state}}')">Update
 				</button>
 			</td>
+			<td>
+			<!--  <img src="{{ 'data:image/' .'.png'. ';base64,' .base64_encode( $campaign->cimage ) }}"> -->
+			 
+			</td>
 	</tr>
 @endforeach
 <script type="text/javascript">

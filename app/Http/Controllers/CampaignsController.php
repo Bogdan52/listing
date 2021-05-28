@@ -57,10 +57,10 @@ class CampaignsController extends Controller
 				$wordArray=explode(" ", $request->search);
 				
 					$campaigns=$campaigns->where(function($camp)use($wordArray) {
-  						foreach ($wordArray as $word) {
-   						 $camp->orWhere('name', 'like', '%'.$word.'%');
-   						}
-  					});
+							foreach ($wordArray as $word) {
+							 $camp->orWhere('name', 'like', '%'.$word.'%');
+							}
+						});
 			}
 			$campaigns=$campaigns->paginate($request->rows,['*'],'page');
 			return response()->json(['html' => view('campaigns_lists',['campaigns'=>$campaigns])->render(),'htmlt' => view('campaigns_list_table',['campaigns'=>$campaigns])->render()]);
@@ -85,17 +85,26 @@ class CampaignsController extends Controller
 		public function store(Request $request,$id)
 		{
 			//	dd($id);
+
 				$data=$request->validate([
 						'buget'=> 'required|numeric|min:0',
-						'name' => 'required|max:255'
+						'name' => 'required|max:255',
+						'start_date'=>'required|date',
+						'end_date'=>'required|date',
+						'cimage'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 				]);
+				
 				
 				$campaign = Campaign::create([
 						'name' => $request->name,
 						'state'=> 'draft',
 						'buget'=> $request->buget,
+						'start_date'=>$request->start_date,
+						'end_date'=>$request->end_date,
+						'cimage'=> file_get_contents($request->cimage),
 						//'company_id'=>$id
 				]);
+
 				$campaign_metric= CampaignMetric::create([
 						'date'=>Carbon::now(),
 						'click'=>'0',
@@ -110,7 +119,7 @@ class CampaignsController extends Controller
 		
 				return redirect()->route('company_campaigns',['id'=>$id]);
 		}
-
+		
 		/**
 		 * Display the specified resource.
 		 *

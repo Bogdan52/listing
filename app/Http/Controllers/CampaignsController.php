@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\CampaignsImport;
 use App\Exports\CampaignsExport;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
+use Image;
 class CampaignsController extends Controller
 {
 		/**
@@ -84,16 +85,15 @@ class CampaignsController extends Controller
 		 */
 		public function store(Request $request,$id)
 		{
-			//	dd($id);
+				
 
 				$data=$request->validate([
 						'buget'=> 'required|numeric|min:0',
 						'name' => 'required|max:255',
 						'start_date'=>'required|date',
 						'end_date'=>'required|date',
-						'cimage'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+						'file'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 				]);
-				
 				
 				$campaign = Campaign::create([
 						'name' => $request->name,
@@ -101,7 +101,7 @@ class CampaignsController extends Controller
 						'buget'=> $request->buget,
 						'start_date'=>$request->start_date,
 						'end_date'=>$request->end_date,
-						'cimage'=> file_get_contents($request->cimage),
+						'cimage'=>"",
 						//'company_id'=>$id
 				]);
 

@@ -20,7 +20,7 @@ class Campaigns extends Migration
 				$table->double('buget')->nullable();
 				$table->date('start_date')->nullable();
 				$table->date('end_date')->nullable();
-				$table->binary('cimage')->nullable();
+				$table->string('cimage')->nullable();
 				$table->integer('company_id')->nullable()->unsigned();
 				$table->foreign('company_id')->references('company_id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
 

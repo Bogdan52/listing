@@ -6,7 +6,7 @@
 				</div>
 
 				<div class="row">
-						<form action="{{route('campaign_store',['id'=>$id])}}" method="post">
+						<form action="{{route('campaign_store',['id'=>$id])}}" method="post" enctype="multipart/form-data">
 								@csrf
 								@if ($errors->any())
 										<div class="alert alert-danger" role="alert">
@@ -39,13 +39,13 @@
 												<div class="invalid-feedback">{{ $message }}</div>
 										@enderror
 								</div>
-								<!-- <div class="form-group">
+								<div class="form-group">
 										<label for="cimage">Image:</label>
-										<input type="file" id="cimage" name="cimage"  accept="image/*">
+										<input type="file" id="cimage" name="file"  accept="image/*">
 										@error('cimage')
 												<div class="invalid-feedback">{{ $message }}</div>
 										@enderror
-								</div> -->
+								</div>
 								<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 				</div>

@@ -99,8 +99,7 @@ $totalViews=0;
 				</button>
 			</td>
 			<td>
-			<!--  <img src="{{ 'data:image/' .'.png'. ';base64,' .base64_encode( $campaign->cimage ) }}"> -->
-			 
+			<img src="storage/app/{{ $campaign->cimage }}" alt="" title="">
 			</td>
 	</tr>
 @endforeach
